@@ -29,6 +29,8 @@ const userschema = new mongoose.Schema({
 
 }, { timestamps: true });
 
+
+//haasing the password using bcrypt
 userschema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         return next()
@@ -37,6 +39,8 @@ userschema.pre("save", async function (next) {
     next()
 })
 
+
+//genrate refresh token methoas as the plugin
 userschema.methods.genraterefreshToken = function () {
     return jwt.sign(
         {
@@ -48,6 +52,8 @@ userschema.methods.genraterefreshToken = function () {
         }
     )
 }
+
+//genrate access token methoas as the plugin
 userschema.methods.genrateaccessToken = function () {
     return jwt.sign({
         _id: this._id,
@@ -59,6 +65,20 @@ userschema.methods.genrateaccessToken = function () {
         }
     )
 }
+
+//checking user password is correct or not
+
+userschema.methods.isPasswordCorrect = async function (candidatePassword) {
+    try {
+        // console.log(this.password)
+        // Compare the candidate password with the hashed password stored in the DB
+        const isMatch = await bcrypt.compare(candidatePassword, this.password);
+        return isMatch;
+    } catch (err) {
+        console.log(err)
+        throw new Error('Error comparing passwords');
+    }
+};
 
 const User = mongoose.model('User', userschema)
 export default User

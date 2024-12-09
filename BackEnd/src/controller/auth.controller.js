@@ -76,6 +76,37 @@ export const logout = (req, res) => {
 }
 
 //login route
-export const login = (req, res) => {
+export const login = async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+
+        const looedInuser = await User.findOne({ email: email }).select("-refreshtoken")
+
+        if (!looedInuser) {
+            return res.status(404).json({ message: "user not found" })
+        }
+
+        const checkpass = await looedInuser.isPasswordCorrect(password)
+        if (!checkpass) {
+            return res.status(401).json({ message: "Passsword is incorrect" })
+        }
+        const { accessToken, refreshtoken } = await genrateaccesstokenandrefreshtoken(looedInuser._id)
+
+        const options = {
+            httpOnly: true,
+            secure: true,
+        }
+        return res.status(200).cookie("accesstoken", accessToken, options).cookie("refeshtoken", refreshtoken, options).json(new Apiresponse(200, { looedInuser }, "user login sucessfully"))
+
+
+
+
+
+
+    } catch (error) {
+        console.log(error)
+
+    }
 
 }
