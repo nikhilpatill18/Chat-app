@@ -16,5 +16,8 @@ app.use(cookieParser())
 // all the routing done here
 
 import authrouter from './routes/auth.routes.js';
+
+import messageroute from './routes/message.route.js';
 app.use('/api/auth', authrouter)
+app.use('/api/message', messageroute)
 export default app

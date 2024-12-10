@@ -2,6 +2,7 @@ import { ApiError } from '../utils/apierror.js'
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
 import { Apiresponse } from '../utils/Apiresponse.js'
+import { uploadoncloudinary } from '../utils/fileupload.js'
 
 
 // signup route
@@ -129,7 +130,46 @@ export const login = async (req, res) => {
 }
 
 // update profil controller
-
+// testing left in postman
 export const updateprofile = async (req, res) => {
+    try {
 
+        const profilepic = req.body;
+        const userid = req.user?._id
+        const response = await uploadoncloudinary(profilepic)
+
+        const updateduser = await User.findByIdAndUpdate(userid, {
+            profilepic: response.secure_url
+        },
+            {
+                new: true
+            }
+        )
+        if (!updateduser) {
+            return res.status(500).json({ message: "unable to uplaod the file" })
+        }
+        return res.status(200).json(new Apiresponse(200, updateduser, "file upload sucessfully"))
+
+
+
+    } catch (error) {
+        console.log(error)
+
+    }
+
+}
+
+
+//auth user
+
+//testing done
+export const authuser = (req, res) => {
+    try {
+
+        res.status(200).json(new Apiresponse(200, req.user, "authenticated user"))
+
+    } catch (error) {
+        console.log(error, "auth user contoller")
+        res.status(500).json({ message: "internal server error" })
+    }
 }
