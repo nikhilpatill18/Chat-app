@@ -1,5 +1,6 @@
 import express, { urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 
@@ -11,6 +12,12 @@ app.use(express.urlencoded({
     limit: "16kb"
 }))
 app.use(cookieParser())
+app.use(cors(
+    {
+        origin: "http://localhost:5173",
+        credentials: true
+    }
+))
 
 
 // all the routing done here

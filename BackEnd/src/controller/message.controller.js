@@ -1,4 +1,4 @@
-import { User } from '../models/user.model.js'
+import User from '../models/user.model.js'
 import { Apiresponse } from '../utils/Apiresponse.js'
 import { Message } from '../models/message.model.js'
 import { uploadoncloudinary } from '../utils/fileupload.js'
