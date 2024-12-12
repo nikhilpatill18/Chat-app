@@ -5,7 +5,7 @@ import { verifyjwt } from '../middleware/Auth.middleware.js';
 const authrouter = express.Router()
 
 authrouter.route('/signup').post(signup)
-authrouter.route('/login').get(login)
+authrouter.route('/login').post(login)
 authrouter.route('/logout').get(verifyjwt, logout)
 authrouter.route('.update-profile').put(verifyjwt, updateprofile)
 

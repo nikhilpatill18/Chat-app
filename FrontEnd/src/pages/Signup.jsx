@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import { useAuthStore } from '../store/useAuthStore'
+import { useAuthStore } from '../store/useAuthStore'
 import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Imagepattern from '../components/Imagepattern'
@@ -14,23 +14,23 @@ const Signup = () => {
         password: ""
     })
 
-    // const { signup, isSigningup } = useAuthStore()
+    const { signup, isSigningup } = useAuthStore()
 
     const validateform = () => {
-        // if (!formdata.fullname.trim()) return toast.error("Full Name is Required")
-        // if (!formdata.email.trim()) return toast.error("Email  is Required")
-        // if (!/\S+@\S+\.\S+/.test(formdata.email)) return toast.error("Invalid wmail format")
-        // if (!formdata.password) return toast.error("Password is Required")
-        // if (formdata.password.length < 6) return toast.error("Password must be more than 6")
+        if (!formdata.fullname.trim()) return toast.error("Full Name is Required")
+        if (!formdata.email.trim()) return toast.error("Email  is Required")
+        if (!/\S+@\S+\.\S+/.test(formdata.email)) return toast.error("Invalid wmail format")
+        if (!formdata.password) return toast.error("Password is Required")
+        if (formdata.password.length < 6) return toast.error("Password must be more than 6")
 
-        // return true
+        return true
 
     }
 
     const handlesubmit = (e) => {
-        // e.preventDefault()
-        // const success = validateform()
-        // if (success == true) { signup(formdata) }
+        e.preventDefault()
+        const success = validateform()
+        if (success == true) { signup(formdata) }
     }
     return (
         <div className='min-h-screen grid lg:grid-cols-2'>
@@ -90,16 +90,16 @@ const Signup = () => {
                                 </div>
                                 <input type={showpassword ? "text" : "password"} className='input input-bordered w-full pl-10' placeholder='' value={formdata.password} onChange={(e) => setFormdata({ ...formdata, password: e.target.value })} />
 
-                                <button className='absolute inset-y-0 right-0 flex items-center pr-3' onClick={(e) => setShowpassword(!showpassword)}>
+                                <span className='absolute inset-y-0 right-0 flex items-center pr-3' onClick={(e) => setShowpassword(!showpassword)}>
                                     {
                                         showpassword ? <EyeOff className='size-5 text-base-content/40' /> : <Eye className='size-5 text-base-content/40' />
                                     }
-                                </button>
+                                </span>
                             </div>
 
 
                         </div>
-                        {/* 
+
                         <button type='submit' className='btn btn-primary w-full' disabled={isSigningup}>
 
                             {
@@ -110,7 +110,7 @@ const Signup = () => {
                                 ) : 'Create Account'
                             }
 
-                        </button> */}
+                        </button>
                     </form>
 
                     <div className='text-center'>

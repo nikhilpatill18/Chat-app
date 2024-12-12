@@ -30,6 +30,7 @@ const App = () => {
 
   return (
     <div>
+      hi
       <Navbar />
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />

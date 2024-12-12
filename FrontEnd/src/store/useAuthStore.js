@@ -51,7 +51,7 @@ export const useAuthStore = create(
                     set({ islogingout: true })
                     const respoonse = await axiosInstance.get("/auth/logout")
                     set({ authUser: null })
-                    toast.success("Logout Success")
+                    toast.success("Logout SuccessFully")
 
 
                 } catch (error) {
@@ -60,6 +60,27 @@ export const useAuthStore = create(
                 }
                 finally {
                     set({ islogingout: false })
+                }
+
+            }
+            ,
+            login: async (data) => {
+                try {
+                    set({ isLogining: true })
+                    const reponse = await axiosInstance.post("/auth/login", data)
+                    set({ authUser: reponse.data })
+                    toast.success("login SucessFully")
+
+                } catch (error) {
+                    console.log(error)
+                    set({ isLogining: false })
+                    set({ authUser: null })
+                    toast.error("Invaid email or password")
+
+
+                }
+                finally {
+                    set({ isLogining: false })
                 }
 
             }
