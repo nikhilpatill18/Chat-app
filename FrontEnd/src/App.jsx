@@ -5,7 +5,6 @@ import Signup from './pages/Signup.jsx'
 import HomePage from './pages/HomePage.jsx'
 import Login from './pages/Login.jsx'
 import Settingpage from './pages/Settingpage.jsx'
-// import HomePage from './pages/HomePage.jsx'
 import Profilpage from './pages/Profilpage.jsx'
 import { useAuthStore } from './store/useAuthStore.js'
 import { Navigate } from 'react-router-dom'
@@ -32,10 +31,9 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      {/* <Signup /> */}
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-        <Route path='/signup' element={authUser ? <Signup /> : <Navigate to="/" />} />
+        <Route path='/signup' element={!authUser ? <Signup /> : <Navigate to="/" />} />
         <Route path='/login' element={!authUser ? <Login /> : <Navigate to="/" />} />
         <Route path='/setting' element={<Settingpage />} />
         <Route path='/profil' element={authUser ? <Profilpage /> : <Navigate to="/login" />} />

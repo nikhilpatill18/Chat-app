@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios.js'
 import toast from 'react-hot-toast'
+// import { authuser } from '../../../BackEnd/src/controller/auth.controller.js'
 
 export const useAuthStore = create(
     (set) => (
@@ -10,6 +11,7 @@ export const useAuthStore = create(
             isLogining: false,
             isUpdatingProfile: false,
             isChecking: true,
+            islogingout: false,
             checkAuth: async () => {
                 try {
 
@@ -40,6 +42,24 @@ export const useAuthStore = create(
                 }
                 finally {
                     set({ isSigningup: false })
+                }
+
+            }
+            ,
+            logout: async () => {
+                try {
+                    set({ islogingout: true })
+                    const respoonse = await axiosInstance.get("/auth/logout")
+                    set({ authUser: null })
+                    toast.success("Logout Success")
+
+
+                } catch (error) {
+                    console.log("Error in logging out", error)
+                    toast.error("Logout Failed")
+                }
+                finally {
+                    set({ islogingout: false })
                 }
 
             }
