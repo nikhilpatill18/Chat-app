@@ -27,14 +27,14 @@ const Navbar = () => {
                         {
                             authUser && (
                                 <>
-                                    <Link to='/profil' className='btn btn-sm gap-2 transition-colors'>
+                                    <Link to='/updateprofile' className='btn btn-sm gap-2 transition-colors'>
                                         <User className='w-4 h-4' />
                                         <span className='hidden sm:inline'>Profil</span>
                                     </Link>
-                                    <button className='btn flex gap-2 items-center' onClick={logout}>
+                                    <Link to="/" className='btn flex gap-2 items-center' onClick={logout}>
                                         <LogOut className='size-5' />
                                         <span className='hidden sm:inline'>Logout</span>
-                                    </button>
+                                    </Link>
 
                                 </>
                             )
