@@ -37,7 +37,7 @@ const App = () => {
         <Route path='/signup' element={!authUser ? <Signup /> : <Navigate to="/" />} />
         <Route path='/login' element={!authUser ? <Login /> : <Navigate to="/" />} />
         <Route path='/setting' element={<Settingpage />} />
-        <Route path='/profil' element={authUser ? <Profilpage /> : <Navigate to="/login" />} />
+        <Route path='/updateprofile ' element={authUser ? <Profilpage /> : <Navigate to="/login" />} />
       </Routes>
 
       <Toaster position='top-center' />
