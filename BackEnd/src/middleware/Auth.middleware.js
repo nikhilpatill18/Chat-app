@@ -7,7 +7,7 @@ export const verifyjwt = async (req, res, next) => {
 
         const token = req.cookies?.accesstoken || req.header("Authorization")?.replace("Bearer", "");
 
-        console.log(token)
+        // console.log(token)
 
         if (!token) {
             return res.status(401).json({ message: "user  not found" })

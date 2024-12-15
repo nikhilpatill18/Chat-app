@@ -115,7 +115,7 @@ export const login = async (req, res) => {
             httpOnly: true,
             secure: true,
         }
-        return res.status(200).cookie("accesstoken", accessToken, options).cookie("refeshtoken", refreshtoken, options).json(new Apiresponse(200, { looedInuser }, "user login sucessfully"))
+        return res.status(200).cookie("accesstoken", accessToken, options).cookie("refreshtoken", refreshtoken, options).json(new Apiresponse(200, { looedInuser }, "user login sucessfully"))
 
 
 

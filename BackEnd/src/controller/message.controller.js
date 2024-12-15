@@ -15,6 +15,7 @@ export const sidebaruser = async (req, res) => {
                 $ne: myId
             }
         })
+        // console.log(alluser)
 
         return res.status(200).json(new Apiresponse(200, alluser, "all userd found")
         )

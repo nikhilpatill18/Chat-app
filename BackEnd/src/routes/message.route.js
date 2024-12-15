@@ -6,6 +6,6 @@ const messageroute = express.Router();
 
 messageroute.route('/users').get(verifyjwt, sidebaruser)
 messageroute.route('/:id').get(verifyjwt, getmessage)
-messageroute.route('/send/:id').get(verifyjwt, sendmessage)
+messageroute.route('/:id').get(verifyjwt, sendmessage)
 
 export default messageroute;
