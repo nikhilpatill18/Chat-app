@@ -4,25 +4,29 @@ import { X } from 'lucide-react'
 
 const Chatheader = () => {
     const { selectedUser, setselectedUser } = useChatStore()
+    console.log("Selecetd user")
+    console.log(selectedUser)
+    const onlineusers = []
+
     return (
         <div className='p-2.5 border-b  border-base-300'>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
                     <div className='avatar'>
                         <div className='size-10 rounded-full relative'>
-                            <img src={selectedUser.profilePic || '/avatar.png'} alt={selectedUser.fullname} />
+                            <img src={selectedUser?.profilePic || '/avatar.png'} alt={selectedUser?.fullname} />
                         </div>
                     </div>
                     <div>
-                        <h3 className='font-medium'>{selectedUser.fullname}</h3>
+                        <h3 className='font-medium'>{selectedUser?.fullname}</h3>
                         <p className='text-sm text-base-content/70'>
                             {
-                                onlineusers.includes(selectedUser._id) ? "Online" : "Offline"
+                                onlineusers.includes(selectedUser?._id) ? "Online" : "Offline"
                             }
                         </p>
                     </div>
                 </div>
-                <button onClick={selectedUser(null)}>
+                <button onClick={setselectedUser(null)}>
                     <X />
                 </button>
 

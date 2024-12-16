@@ -1,18 +1,18 @@
 import { create } from 'zustand'
 import toast from 'react-hot-toast'
 import { axiosInstance } from '../lib/axios'
-export const useChatStore = create((set) => (
+export const useChatStore = create((set, get) => (
     {
         messages: [],
         users: [],
         selectedUser: null,
         isUserloading: false,
-        isMessageLoading: false,
+        isMessageLoading: true,
         getusers: async () => {
             try {
                 set({ isUserloading: true })
                 const users = await axiosInstance.get('/message/users')
-                // console.log(users.data)
+                console.log(users.data.data)
                 set({ users: users.data.data })
             } catch (error) {
                 console.log(error)
@@ -26,7 +26,9 @@ export const useChatStore = create((set) => (
             try {
                 set({ isMessageLoading: true })
                 const messages = await axiosInstance.get(`/message/${userId}`)
-                set({ messages: messages.data })
+                console.log(messages.data.data)
+                // console.log(isMessageLoading)
+                set({ messages: messages.data.data })
             } catch (error) {
                 toast.error("unable to laod the messages")
             }
@@ -34,9 +36,22 @@ export const useChatStore = create((set) => (
                 set({ isMessageLoading: false })
             }
         },
-        // toto to optimize this later
+        // todo to optimize this later
         setselectedUser: async (selectedUser) => {
             set({ selectedUser: selectedUser })
+            console.log(selectedUser, "chatstore")
+        },
+        sendmessage: async (messageData) => {
+            const { selectedUser, messages } = get()
+            try {
+                const response = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData)
+                // console.log(response.data.data)
+                set({ messages: [...messages, response.data.data] })
+            } catch (error) {
+                console.log(error)
+                toast.error("Unbale to send the message")
+
+            }
 
         }
 

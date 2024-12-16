@@ -63,14 +63,15 @@ export const sendmessage = async (req, res) => {
         const { text, image } = req.body
         const { id: reciverId } = req.params
 
-        const senderId = req.body._id
-
+        const senderId = req.user._id
         let imageurl;
         if (image) {
             // upload the image on the cloudinary server
             const uplaod = await uploadoncloudinary(image)
+            console.log(uplaod)
             imageurl = uplaod.secure_url
         }
+        console.log(image)
 
         const newMessage = await Message.create({
             senderId: senderId,

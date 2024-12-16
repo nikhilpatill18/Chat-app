@@ -22,7 +22,7 @@ const App = () => {
   if (isChecking && !authUser) return (
     <div className='flex items-center justify-center h-screen'>
       <div className='loading loading-lg loading-dots bg-primary'>
-
+        App.jsx
       </div>
 
     </div>
