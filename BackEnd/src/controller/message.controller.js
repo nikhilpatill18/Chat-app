@@ -2,6 +2,7 @@ import User from '../models/user.model.js'
 import { Apiresponse } from '../utils/Apiresponse.js'
 import { Message } from '../models/message.model.js'
 import { uploadoncloudinary } from '../utils/fileupload.js'
+import { io, getreciverid } from '../lib/soket.js'
 
 
 
@@ -82,6 +83,12 @@ export const sendmessage = async (req, res) => {
 
         if (!newMessage) {
             res.status(500).json({ message: "while while sending the message" })
+        }
+        // console.log(newMessage)
+        const reciversocketid = getreciverid(reciverId)
+        // console.log(reciversocketid, "userid")
+        if (reciversocketid) {
+            io.to(reciversocketid).emit("newmessage", newMessage)
         }
 
         //todo realtime funcality thoruhgt the socket.io

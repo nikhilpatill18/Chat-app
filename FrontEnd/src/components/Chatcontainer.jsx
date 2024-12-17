@@ -7,11 +7,17 @@ import { useAuthStore } from '../store/useAuthStore.js'
 import { formatedate } from '../lib/formatdate.js'
 
 const Chatcontainer = () => {
-    const { getmessage, selectedUser, messages, isMessageLoading } = useChatStore()
+    const { getmessage, selectedUser, messages, isMessageLoading, updatemessages, unsubscribemessage } = useChatStore()
     const { authUser } = useAuthStore()
     useEffect(() => {
         getmessage(selectedUser._id)
-    }, [selectedUser._id, getmessage])
+        // updatemessages()
+
+
+        return () => unsubscribemessage()
+
+    }, [selectedUser._id, getmessage, unsubscribemessage, updatemessages])
+
     if (isMessageLoading) {
         return (
 

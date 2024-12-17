@@ -2,6 +2,7 @@ import { MessageCircle, Users } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore'
 import SidebarSkeletion from './SidebarSkeletion'
+import { useAuthStore } from '../store/useAuthStore'
 
 
 const Sidebar = () => {
@@ -12,7 +13,7 @@ const Sidebar = () => {
         getusers()
 
     }, [getusers])
-    const onlineusers = []
+    const { onlineUsers } = useAuthStore()
 
     if (isUserloading) return <SidebarSkeletion />
     return (
@@ -34,7 +35,7 @@ const Sidebar = () => {
                             <div className='relative mx-auto lg:mx-0'>
                                 <img src={user.profilePic || "/avatar.png"} alt={"u"} className='size-12 object-cover rounded-full' />
                                 {
-                                    onlineusers.includes(user._id) && (<span className='absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-zinc-200'></span>)
+                                    onlineUsers.includes(user._id) && (<span className='absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-zinc-200'></span>)
                                 }
                             </div>
                             {/* user info only visibile on larger screen */}
@@ -44,7 +45,7 @@ const Sidebar = () => {
                                 </div>
                                 <div className='text-sm text-zinc-400'>
                                     {
-                                        onlineusers.includes(user._id) ? "Online" : "offline"
+                                        onlineUsers.includes(user._id) ? "Online" : "offline"
                                     }
 
                                 </div>

@@ -2,6 +2,8 @@
 import dotenv from "dotenv"
 import { connectdb } from './lib/db.js';
 import app from './app.js';
+
+import { server, io } from "./lib/soket.js";
 dotenv.config(
     {
         path: '.env'
@@ -9,7 +11,7 @@ dotenv.config(
 );
 const port = process.env.PORT || 3000
 connectdb().then(() => {
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log("listening on port", port)
     });
 
