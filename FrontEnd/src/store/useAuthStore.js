@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios.js'
 import toast from 'react-hot-toast'
-// import { authuser } from '../../../BackEnd/src/controller/auth.controller.js'
 import { io } from 'socket.io-client'
 
 export const useAuthStore = create(
@@ -103,6 +102,9 @@ export const useAuthStore = create(
                     console.log(error)
                     toast.error("unbale to update profile")
 
+                }
+                finally {
+                    set({ isUpdatingProfile: false })
                 }
 
             },
