@@ -28,7 +28,7 @@ export const useChatStore = create((set, get) => (
             try {
                 set({ isMessageLoading: true })
                 const messages = await axiosInstance.get(`/message/${userId}`)
-                console.log(messages.data.data)
+                // console.log(messages.data.data)
                 // console.log(isMessageLoading)
                 set({ messages: messages.data.data })
             } catch (error) {
@@ -41,7 +41,7 @@ export const useChatStore = create((set, get) => (
         // todo to optimize this later
         setselectedUser: async (selectedUser) => {
             set({ selectedUser: selectedUser })
-            console.log(selectedUser, "chatstore")
+            // console.log(selectedUser, "chatstore")
         },
         sendmessage: async (messageData) => {
             const { selectedUser, messages } = get()

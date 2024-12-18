@@ -5,8 +5,8 @@ import { useAuthStore } from '../store/useAuthStore'
 
 const Chatheader = () => {
     const { selectedUser, setselectedUser } = useChatStore()
-    console.log("Selecetd user")
-    console.log(selectedUser)
+    // console.log("Selecetd user")
+    // console.log(selectedUser)
     const { onlineUsers } = useAuthStore()
 
     return (

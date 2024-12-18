@@ -1,8 +1,9 @@
 import User from '../models/user.model.js'
 import { Apiresponse } from '../utils/Apiresponse.js'
 import { Message } from '../models/message.model.js'
-import { uploadoncloudinary } from '../utils/fileupload.js'
+// import { uploadoncloudinary } from '../utils/fileupload.js'
 import { io, getreciverid } from '../lib/soket.js'
+import cloudinary from '../utils/fileupload.js'
 
 
 
@@ -68,11 +69,10 @@ export const sendmessage = async (req, res) => {
         let imageurl;
         if (image) {
             // upload the image on the cloudinary server
-            const uplaod = await uploadoncloudinary(image)
-            console.log(uplaod)
-            imageurl = uplaod.secure_url
+            const uploadResponse = await cloudinary.uploader.upload(image);
+            imageurl = uploadResponse.secure_url;
         }
-        console.log(image)
+        // console.log(image)
 
         const newMessage = await Message.create({
             senderId: senderId,
@@ -86,7 +86,7 @@ export const sendmessage = async (req, res) => {
         }
         // console.log(newMessage)
         const reciversocketid = getreciverid(reciverId)
-        console.log(reciversocketid, "userid")
+        // console.log(reciversocketid, "userid")
         if (reciversocketid) {
             io.to(reciversocketid).emit("newmessage", newMessage)
         }

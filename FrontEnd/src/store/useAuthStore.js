@@ -23,7 +23,7 @@ export const useAuthStore = create(
 
                 }
                 catch (err) {
-                    console.log("erroe in check auth", err);
+                    // console.log("erroe in check auth", err);
                     set({ authUser: null })
                 }
                 finally {
@@ -59,7 +59,7 @@ export const useAuthStore = create(
 
 
                 } catch (error) {
-                    console.log("Error in logging out", error)
+                    // console.log("Error in logging out", error)
                     toast.error("Logout Failed")
                 }
                 finally {
@@ -94,12 +94,12 @@ export const useAuthStore = create(
                 try {
                     set({ isUpdatingProfile: true })
                     const user = await axiosInstance.put("/auth/update-profile", data)
-                    set({ authUser: user })
+                    set({ authUser: user.data })
                     toast.success("Profile Updated")
 
                 } catch (error) {
                     set({ isUpdatingProfile: false })
-                    console.log(error)
+                    // console.log(error)
                     toast.error("unbale to update profile")
 
                 }
@@ -111,7 +111,7 @@ export const useAuthStore = create(
             connectSocket: () => {
 
                 const { authUser } = get()
-                console.log(authUser.data._id)
+                // console.log(authUser.data._id)
                 if (!authUser || get().socket?.connected) return
                 const socket = io("http://localhost:5001", {
                     query: {

@@ -2,7 +2,8 @@ import { ApiError } from '../utils/apierror.js'
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
 import { Apiresponse } from '../utils/Apiresponse.js'
-import { uploadoncloudinary } from '../utils/fileupload.js'
+// import { uploadoncloudinary } from '../utils/fileupload.js'
+import cloudinary from '../utils/fileupload.js'
 
 
 // signup route
@@ -134,12 +135,14 @@ export const login = async (req, res) => {
 export const updateprofile = async (req, res) => {
     try {
 
-        const profilepic = req.body;
+        const { profilePic } = req.body;
         const userid = req.user?._id
-        const response = await uploadoncloudinary(profilepic)
+        // console.log(profilePic)
+        const response = await cloudinary.uploader.upload(profilePic);
+        // console.log(response)
 
         const updateduser = await User.findByIdAndUpdate(userid, {
-            profilepic: response.secure_url
+            profilPic: response.secure_url
         },
             {
                 new: true
